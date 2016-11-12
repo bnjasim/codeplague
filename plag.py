@@ -11,8 +11,19 @@ file = open('res/btree.c')
 outfile = open('res/out.c', 'w')
 
 for line in file:
-  cont = line.split()
-  for token in cont:
+  # strip line - remove front and back whitespaces
+  line = line.lstrip()
+  # Check for comments. 
+  # First check for // comments
+  comment_pos = line.find('//')
+  if (comment_pos == 0):
+    continue
+
+  if (comment_pos > 0):
+    line = line[:comment_pos]
+
+  contents = line.split()
+  for token in contents:
     outfile.write(token)
     outfile.write(' ')
   outfile.write('\n')
